@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package socketProtos.command;
+option java_package = "com.example.mvvm_navigation.protobuf";
+// 自定生成的class类名
+option java_outer_classname = "Socket";
+
+enum Command //枚举消息类型
+    {
+        system = 0; //系統訊息請忽略
+        loginFailed = 4001; //登入失敗 or 沒有權限
+        repeatLogin = 4002; //重複登入
+        parameterError = 4444; //參數錯誤
+
+        // notification = 1001; //訊統通知
+        // followUpdate = 1002; //賽事訂閱通知
+
+        tgMatchUpdate = 2001; //TG賽事資訊變動
+
+        matchUpdate = 3001; //賽事變動通知
+        goalNotify = 3002; //進球通知
+        newMatches = 3003; //新賽事資訊通知
+        openDateChange = 3004; //賽事開賽時間變動通知
+        deleteMatches = 3005; //賽事刪除通知
+        // matchDetail = 3006; //賽事詳情通知
+        // matchIndex = 3007; //賽事指數通知
+        indexUpdate = 3008; // 指數變動通知
+    }

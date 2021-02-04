@@ -1,0 +1,71 @@
+// 不加默认使用proto2
+syntax = "proto3";
+
+// 引入其它proto文件，使用其中的command
+import "Socket.proto";
+
+//  包名，如果不指定，这生成文件在输出路径的根目录
+package socketProtos.MatchInfo;
+
+//  生成的java文件包名
+option java_package = "com.example.mvvm_navigation.protobuf";
+// 自定生成的class类名
+option java_outer_classname = "SocketMatchInfo";
+
+message MatchUpdate  {
+    socketProtos.command.Command command = 1;
+    int32 matchId = 2; // 賽事id
+    sint32 status = 3; // 賽事狀態
+    int32 startTime = 4; // 實際開球時間(timestamp)
+    int32 homeScore = 5; // 主隊全場得分
+    int32 homeHalfTime = 6; // 主隊半場得分
+    int32 homeRedCard = 7; // 主隊紅牌數量
+    int32 homeYellowCard = 8; // 主隊黃牌數量
+    int32 homeCorner = 9; // 主隊角球數量
+    int32 awayScore = 10; // 客隊全場得分
+    int32 awayHalfTime = 11; // 客隊半場得分
+    int32 awayRedCard = 12; // 客隊紅牌數量
+    int32 awayYellowCard = 13; // 客隊黃牌數量
+    int32 awayCorner = 14; // 客隊角球數量
+    string animation = 15; // 動畫連結
+    string liveStreaming = 16; // 視頻連結
+}
+
+message GoalNotify {
+    socketProtos.command.Command command = 1;
+    int32 matchId = 2; // 賽事id
+    sint32 status = 3; // 賽事狀態
+    int32 type = 4; // 通知事件類型 1:進球 2:紅牌 3:黃牌
+    int32 runtime = 5; // 現在比賽進行的時間
+    int32 teamEvent = 6; // 通知事件方 1:主隊 2客隊
+    string homeName = 7; // 主隊名稱簡中
+    string homeNameEn = 8; // 主隊名稱英文
+    string homeNameZht = 9; // 主隊名稱繁中
+    int32 homeScore = 10;  // 主隊全場得分
+    int32 homeRedCard = 11; // 主隊紅牌數量
+    int32 homeYellowCard = 12; // 主隊黃牌數量
+    int32 homeCorner = 13; // 主隊角球數量
+    string awayName = 14; // 客隊名稱簡中
+    string awayNameEn = 15; // 客隊名稱英文
+    string awayNameZht = 16; // 客隊名稱繁中
+    int32 awayScore = 17; // 客隊全場得分
+    int32 awayRedCard = 18; // 客隊紅牌數量
+    int32 awayYellowCard = 19; // 客隊黃牌數量
+    int32 awayCorner = 20; // 客隊角球數量
+}
+
+message DeleteMatches {
+    socketProtos.command.Command command = 1;
+    repeated int32 matchIds = 2; // 賽事id
+}
+
+message  OpenDateChange{
+    socketProtos.command.Command command = 1;
+    repeated ChangeItem changeList = 2; // 變動列表
+}
+
+message ChangeItem{
+    int32 matchId = 1; // 賽事id
+    int32 initialOpenDate = 2; // 原本時間
+    int32 changeOpenDate = 3; // 變動時間
+}

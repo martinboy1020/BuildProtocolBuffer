@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "Socket.proto";
+
+//  包名，如果不指定，这生成文件在输出路径的根目录
+package socketProtos.TgMatchInfo;
+//  生成的java文件包名
+option java_package = "com.example.mvvm_navigation.protobuf";
+// 自定生成的class类名
+option java_outer_classname = "SocketTgMatchInfo";
+
+message TgMatchUpdate{
+    socketProtos.command.Command command = 1;
+    repeated TgMatchInfo data = 2;
+}
+
+message TgMatchInfo {
+    int32 matchId = 1; // 賽事id
+    int32 tgStatus = 2; // TG賽事是否開啟 0未開啟 1開啟
+    int32 openDate = 3; // 開賽時間(timestamp)
+    int32 betsCount = 4; // 總下注量
+    repeated BetDetail betDetail = 5;
+}
+
+message BetDetail {
+    int32 marketType = 1; // 1波膽 2半場波膽 3總入球
+    string selectionName = 2; // 選項名稱
+    string transaction = 3; // 可交易量
+    string profit = 4; // 獲利率
+    string betMoney = 5; // 累積金額
+    int32 isPopular = 6; // 是否熱銷
+    int32 isSoldOut = 7; // 是否完售
+}

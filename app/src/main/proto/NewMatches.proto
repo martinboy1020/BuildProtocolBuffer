@@ -1,0 +1,154 @@
+syntax = "proto3";
+
+import "Socket.proto";
+
+//  包名，如果不指定，这生成文件在输出路径的根目录
+package socketProtos.NewMatches;
+//  生成的java文件包名
+option java_package = "com.example.mvvm_navigation.protobuf";
+// 自定生成的class类名
+option java_outer_classname = "SocketNewMatches";
+
+message NewMatches {
+    socketProtos.command.Command command = 1;
+    repeated Area areas = 2; // 地區列表
+    repeated Match matches = 3; // 地區列表
+
+}
+
+message Area {
+    int32 id = 1; // 地區id
+    string nameZh = 2; // 地區名稱(簡中)
+    string nameZht = 3; // 地區名稱(繁中)
+    string nameEn = 4; // 地區名稱(英文)
+    repeated Country countries = 5; // 國家列表
+}
+
+message Country{
+    int32 id = 1; // 國家id
+    string nameZh = 2; // 國家名稱(簡中)
+    string nameZht = 3; // 國家名稱(繁中)
+    string nameEn = 4; // 國家名稱(英文)
+    repeated League leagues = 5; // 聯盟列表
+
+}
+
+message League{
+    int32 id = 1; // 聯盟id
+    string nameZh = 2; // 聯盟名稱(簡中)
+    string nameZht = 3; // 聯盟名稱(繁中)
+    string nameEn = 4; // 聯盟名稱(英文)
+}
+
+message Match{
+    int32 matchId = 1; // 賽事id
+    int32 status = 2; // 賽事狀態
+    int32 openDate = 3; // 開賽時間
+    int32 startTime = 4; // 開球時間
+    int32 areaId = 5; // 地區id
+    int32 countryId = 6; // 國家id
+    int32 leagueId = 7; // 聯盟id
+    string leagueNameZh = 8; // 聯盟名稱(簡中簡寫)
+    string leagueNameZht = 9; // 聯盟名稱(繁中簡寫)
+    string leagueNameEn = 10; // 聯盟名稱(英文簡寫)
+    string leagueLogo = 11; // 聯盟logo
+    int32 homeId = 12; // 主隊id
+    int32 awayId = 13; // 客隊id
+    string homeNameZh = 14; // 主隊名稱(簡中)
+    string homeNameZht = 15; // 主隊名稱(繁中)
+    string homeNameEn = 16; // 主隊名稱(英文)
+    string awayNameZh = 17; // 客隊名稱(簡中)
+    string awayNameZht = 18; // 客隊名稱(繁中)
+    string awayNameEn = 19; // 客隊名稱(英文)
+    string homeLogo = 20; // 主隊logo
+    string awayLogo = 21; // 客隊logo
+    int32 homeScore = 22; // 主隊全場比分
+    int32 awayScore = 23; // 客隊全場比分
+    int32 homeHalfScore = 24; // 主隊半場比分
+    int32 awayHalfScore = 25; // 客隊半場比分
+    int32 homeRedCard = 26; // 主隊紅牌數量
+    int32 awayRedCard = 27; // 客隊紅牌數量
+    int32 homeYellowCard = 28; // 主隊黃牌數量
+    int32 awayYellowCard = 29; // 客隊黃牌數量
+    int32 homeCorner = 30; // 主隊角球數量
+    int32 awayCorner = 31; // 客隊角球數量
+    string animation = 32; // 動畫連結
+    string liveStreaming = 33; // 視頻連結
+    string fullGameTime = 34; // 完場時間
+    int32 neutral = 35; // 是否為中立場 0否 1是
+    int32 round = 36; // 輪次
+    int32 betsCount = 37; // 累計下注次數
+    bool hasStatistics = 38; // 是否有統計項目(scoreStatistics、oddStatistics、tgOdds、odds)
+    ScoreStatistics scoreStatistics = 39; // 選項出現率統計
+    OddStatistics oddStatistics = 40; // 指數統計
+    repeated TgOdd tgOdds = 41; // TG指數資訊
+    OddIndexs odds = 42; // 一般指數(亞、歐、大小球)資訊
+}
+
+message ScoreStatistics {
+     repeated ScoreItem home = 1; // 主隊
+     repeated ScoreItem away = 2; // 客隊
+}
+
+message ScoreItem {
+    string selectionName = 1; // 選項
+    string appearRate = 2; // 出現率
+    int32 continuedCount = 3; // 連續出現次數
+}
+
+message OddStatistics {
+    OddStatisticsItem home = 1; // 主隊
+    OddStatisticsItem away = 2; // 客隊
+}
+
+message OddStatisticsItem {
+    int32 teamId = 1; // 隊伍id
+    string companyId = 2; // 指數公司id
+    string companyName = 3; // 指數公司名稱
+    OddStatisticsDetail win = 4; // 贏
+    OddStatisticsDetail lost = 5; // 輸
+    OddStatisticsDetail peace = 6; // 和
+    OddStatisticsDetail asiaWin = 7; // 亞盤連續贏盤
+    OddStatisticsDetail asiaLost = 8; // 亞盤連續輸盤
+    OddStatisticsDetail asiaPeace = 9; // 亞盤連續平局
+    OddStatisticsDetail overBall = 10; // 連續大球
+    OddStatisticsDetail underBall = 11; // 連續小球
+    OddStatisticsDetail peaceBall = 12; // 連續走(平局)
+    int32 totalCount = 13; // 統計賽事數量
+}
+
+message OddStatisticsDetail {
+    int32 appearCnt = 1; // 出現次數
+    string appearRate = 2; // 出現機率
+    int32 continuedCount = 3; // 連續出現次數
+}
+
+message TgOdd {
+    string selectionName = 1; // 選項名稱
+    string transaction = 2; // 可交易量
+    string profit = 3; // 獲利率
+    string betMoney = 4; // 累計下注金額
+    int32 isPopular = 5; // 是否熱銷 0否 1是
+    int32 isSoldOut = 6; // 是否完售 0否 1是
+}
+
+message OddIndexs {
+    OddIndexItem asia = 1; // 亞盤
+    OddIndexItem eu = 2; // 歐盤
+    OddIndexItem bs = 3; // 大小球
+}
+
+message OddIndexItem{
+    int32 companyID = 1; // 指數公司id
+    string companyName = 2; // 指數公司名稱
+    OddIndexDetail first = 3; // 初盤
+    OddIndexDetail latest = 4; // 即時盤
+    OddIndexDetail live = 5; // 滾球盤
+    int32 closed = 6; // 是否封盤 0否 1是
+}
+
+message OddIndexDetail{
+    string home = 1; // 主賠率
+    string handicap = 2; // 和賠率
+    string away = 3; // 客賠率
+}
